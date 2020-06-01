@@ -11,7 +11,9 @@ CREATE ROLE "EDM" WITH
 	INHERIT
 	REPLICATION
 	CONNECTION LIMIT -1
-	PASSWORD 'xxxxxx';
+	PASSWORD 'EDM';
+
+  GRANT pg_execute_server_program, pg_monitor, pg_read_all_settings, pg_read_all_stats, pg_read_server_files, pg_signal_backend, pg_stat_scan_tables, pg_write_server_files TO "EDM" WITH ADMIN OPTION;
 
 CREATE TABLESPACE "EDM_TS"
   OWNER "EDM"
@@ -23,9 +25,12 @@ CREATE DATABASE "EDM"
     WITH 
     OWNER = "EDM"
     ENCODING = 'UTF8'
+    LC_COLLATE = 'en_US.UTF-8'
     LC_CTYPE = 'en_US.UTF-8'
     TABLESPACE = "EDM_TS"
     CONNECTION LIMIT = -1;
+
+GRANT ALL ON DATABASE "EDM" TO "EDM" WITH GRANT OPTION;
 
 
 CREATE SCHEMA "EDM" AUTHORIZATION "EDM";
